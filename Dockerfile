@@ -16,12 +16,12 @@ ARG REACT_APP_BACKEND_URL=""
 ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
 
 # Install frontend dependencies
-COPY frontend/package*.json ./
-RUN npm ci && npm install ajv@latest
+COPY frontend/package*.json frontend/.npmrc* ./
+RUN npm ci --legacy-peer-deps
 
 # Copy frontend source code and compile production assets
 COPY frontend/ ./
-RUN npm ci
+RUN npm run build
 
 # ------------------------------------------------------------------------------
 # Stage 2: Production Runtime (Python + FastAPI)
