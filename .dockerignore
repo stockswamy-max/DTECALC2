@@ -1,0 +1,35 @@
+# Dependencies and Virtual Environments
+**/node_modules
+**/venv
+**/.venv
+**/env
+
+# Build outputs
+**/build
+**/dist
+**/.cache
+
+# Version control and IDE metadata
+.git
+.gitignore
+.gitconfig
+.emergent
+.vscode
+.idea
+
+# Python bytecode and caches
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.pytest_cache
+**/test_reports
+
+# Environment files
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Operating System files
+.DS_Store
+Thumbs.db

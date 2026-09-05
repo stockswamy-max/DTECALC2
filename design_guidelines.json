@@ -1,0 +1,73 @@
+{
+  "theme": "light",
+  "archetype": "SWISS & HIGH-CONTRAST",
+  "typography": {
+    "headings": "Manrope, sans-serif",
+    "body": "IBM Plex Sans, sans-serif",
+    "mono": "JetBrains Mono, monospace",
+    "notes": "- Headings use Manrope with tight tracking (tracking-tight).\n- Body uses IBM Plex Sans for excellent data readability.\n- Numeric outputs in gauges use JetBrains Mono or tabular-nums to align digits."
+  },
+  "colors": {
+    "primary": "#0F172A",
+    "secondary": "#F8FAFC",
+    "accent": "#3B82F6",
+    "background": "#FFFFFF",
+    "surface": "#F1F5F9",
+    "border": "#E2E8F0",
+    "text": "#0F172A",
+    "muted": "#64748B",
+    "success": "#10B981",
+    "warning": "#F59E0B",
+    "danger": "#EF4444"
+  },
+  "visual_enhancers": {
+    "shadows": "Minimal. Use sharp 1px borders (border-slate-200) instead of heavy shadows. Subtle shadow-sm for interactive elements.",
+    "border_radius": "Rounded-md (6px) or rounded-lg (8px) for inputs and cards. No excessive pill shapes except for small badges.",
+    "textures": "Flat, clean solid backgrounds. Optical clarity."
+  },
+  "grids": {
+    "layout": "High Density Grid (MODE B). 12-column base.",
+    "spacing": "Dense but clear. p-6 for cards. gap-6 for main grid.",
+    "desktop": "Left column (col-span-12 lg:col-span-8) for inputs (Grid of 2 columns for form fields). Right column (col-span-12 lg:col-span-4) for sticky summary panel.",
+    "mobile": "Single column grid-cols-1. Summary panel should remain easily accessible."
+  },
+  "components": {
+    "inputs": "Shadcn UI Input. Use a prefix icon or text for currency (e.g., '$'). Left aligned text. Apply tabular-nums.",
+    "labels": "Small (text-sm), text-slate-600, medium weight for clarity.",
+    "buttons": "Sharp corners or subtle rounded-md. Primary Print/Export button: bg-slate-900 text-white hover:bg-slate-800.",
+    "cards": "Flat background (bg-white), 1px solid border (border-slate-200), shadow-sm. Used to group entry sections (Loan, Income, Housing, Debts)."
+  },
+  "motion": {
+    "interactions": "Hover states on all buttons and inputs. Transition colors explicitly (e.g. transition-colors duration-200). No complex page-load animations—loan officers want speed.",
+    "gauges": "Animate the width/fill of the DTI gauges on value change."
+  },
+  "layout_structure": {
+    "header": "Clean white header with border-b, Lucide Icon (e.g., Calculator or Landmark) and Title 'LendClear DTI Calculator'. sticky top-0 bg-white/90 backdrop-blur-md z-50.",
+    "main_content": "Max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8.",
+    "entry_section": "Four main cards: 1. Loan Details (Amount, APR, Years). 2. Monthly Income (Base, Rental, Bonus, Other). 3. Housing Expenses (Tax, Insurance, HOA, Escrow). 4. Other Debts (Car, Credit Card, Other).",
+    "summary_section": "Sticky card on right (top-24). Big 'Hero' Numbers for Front-End (Housing) and Back-End (Total) DTI. Progress bars with color coding (Safe < 28/36, Warning < 35/45, Danger > 35/45). Print/PDF Button.",
+    "print_styles": "CSS @media print must hide Header, Print Button, and format the layout to a clean 1-column list of inputs and the final gauges."
+  },
+  "accessibility": {
+    "contrast": "Ensure all text meets APCA/WCAG standards. Text over colored badges must be readable.",
+    "forms": "Use explicit labels and aria-describedby for input hints.",
+    "data_testid": "Add data-testid to ALL inputs, buttons, and result displays (e.g., data-testid='input-loan-amount', data-testid='dti-total-result')."
+  },
+  "instructions_to_main_agent": [
+    "Build a single-page React app (.js files) in the provided setup.",
+    "Use standard Shadcn components for Inputs, Labels, Cards, Progress bars, Buttons.",
+    "Implement real-time calculation logic: Monthly P&I (standard amortization formula). Front-End DTI = (P&I + Housing Expenses) / Total Income. Back-End DTI = (Front-End Expenses + Other Debts) / Total Income.",
+    "Implement print functionality using browser's window.print() and writing @media print CSS to hide UI controls and expand columns to fit a printed page.",
+    "Ensure all numbers are formatted as currency or percentages correctly.",
+    "Build visual DTI zone indicators (e.g., custom colored progress bars) indicating Safe, Warning, and High-Risk zones.",
+    "Make sure all inputs are type='number' but format them nicely if possible, or keep simple number inputs with clear labels."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
+    "You MUST NOT apply universal transition (transition: all).",
+    "You MUST NOT center align the app container (.App { text-align: center; }).",
+    "NEVER use placeholder text for logos; use Lucide icons if images are unavailable.",
+    "Ensure the tool is hyper-responsive and doesn't lose state accidentally.",
+    "Use lucide-react for all standard icons."
+  ]
+}

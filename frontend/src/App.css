@@ -1,0 +1,95 @@
+/* Base app styles — Swiss / high-contrast finance tool */
+.App {
+  text-align: left;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #0f172a;
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+}
+
+.font-heading {
+  font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-mono-num {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Smooth width transition on ratio gauges */
+.dti-gauge-fill {
+  transition: width 350ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 250ms ease;
+}
+
+/* Print styles — clean printable DTI report */
+@media print {
+  @page {
+    margin: 0.5in;
+    size: letter;
+  }
+
+  html,
+  body,
+  .App {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .print-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  .print-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+
+  .print-full {
+    grid-column: 1 / -1 !important;
+  }
+
+  .print-card {
+    border: 1px solid #000 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    background: #fff !important;
+  }
+
+  .sticky {
+    position: static !important;
+  }
+
+  .dti-gauge-track {
+    border: 1px solid #000 !important;
+    background: #fff !important;
+  }
+
+  .dti-gauge-fill {
+    background: #000 !important;
+  }
+
+  a[href]:after {
+    content: "";
+  }
+}
+
+.print-only {
+  display: none;
+}

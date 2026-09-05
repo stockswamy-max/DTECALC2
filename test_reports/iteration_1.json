@@ -1,0 +1,28 @@
+{
+  "summary": "Frontend-only testing of LendClear DTI Calculator single-page app. Verified header, all 14 input fields with data-testids, P&I amortization formula ($2,270.09 for $350k/6.75%/30yr), income/housing/PITI aggregates, front/back DTI computation (35.12% / 42.11% for the provided scenario), zone labels (Safe/Caution/High Risk), Reset restoring years=30 with other fields empty, and Print button behavior (toast 'Enter monthly income before printing' when income=0; window.print() called when income present). 31/33 checks passed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "DTI zone classification (lib/dti.js frontEndZone/backEndZone)", "issue": "Floating-point precision causes boundary misclassification. At exactly 28% front-end DTI (e.g. income $10,000, property tax $2,800), UI shows 'Caution' instead of 'Safe' because 2800/10000*100 evaluates to 28.000000000000004 in JS, failing the <=28 check. Same risk exists for 35, 36, 43 boundaries though 35% and 36% happened to classify correctly in testing. Recommended fix: round pct to 2 decimals before zone comparison, or use epsilon tolerance (e.g., pct <= 28 + 1e-9).", "selector": "[data-testid=\"dti-frontend\"]", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Optional: fix floating-point boundary in frontEndZone/backEndZone in /app/frontend/src/lib/dti.js (round percent or add epsilon) so that exactly 28%/36%/43% land in the correct zone."
+  ],
+  "critical_code_review_comments": [
+    "dti.js zone functions use raw <= comparisons on floating-point percentages — vulnerable to precision errors at boundaries.",
+    "monthlyPI, fmt helpers, and useMemo memoization look clean and correct.",
+    "All interactive elements have data-testid attributes as required.",
+    "Print gating logic (income <= 0) is implemented correctly and shows a sonner toast."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "94% (31/33)"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Frontend fully covered. Only minor floating-point boundary edge in zone classification remains. All specified DTI math, testids, reset, and print behaviors verified against public REACT_APP_BACKEND_URL.",
+  "rca of the issue": "At exactly 28% front-end DTI, JS computation (2800/10000)*100 yields 28.000000000000004 due to IEEE-754 representation of 0.28. frontEndZone uses `pct <= 28` which returns false for 28.000...004, causing the value to fall into the 'warn' (Caution) bucket. Fix: `const p = Math.round(pct * 100) / 100;` before comparisons, or use `pct <= 28 + 1e-9`."
+}
