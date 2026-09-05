@@ -17,7 +17,7 @@ ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
 
 # Install frontend dependencies
 COPY frontend/package*.json ./
-RUN npm install --legacy-peer-deps
+RUN npm ci && npm install ajv@latest
 
 # Copy frontend source code and compile production assets
 COPY frontend/ ./
@@ -68,7 +68,7 @@ EXPOSE 3000
 
 # Health check directive (monitored by Docker & Coolify/Traefik)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD curl -f http://localhost:${PORT:-3000}/api/ || exit 1
+    CMD curl -f http://localhost:${PORT:-3000}/api/ || exit 1
 
 # Start FastAPI application using uvicorn binding to 0.0.0.0:$PORT
 CMD ["sh", "-c", "uvicorn server:app --host 0.0.0.0 --port ${PORT:-3000}"]
