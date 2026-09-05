@@ -21,7 +21,7 @@ RUN npm ci && npm install ajv@latest
 
 # Copy frontend source code and compile production assets
 COPY frontend/ ./
-RUN npm run build
+RUN npm ci
 
 # ------------------------------------------------------------------------------
 # Stage 2: Production Runtime (Python + FastAPI)
