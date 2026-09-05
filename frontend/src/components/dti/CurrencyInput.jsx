@@ -84,3 +84,36 @@ export const PlainNumberInput = ({
     </div>
   );
 };
+
+export const TextInput = ({
+  id,
+  label,
+  value,
+  onChange,
+  testid,
+  placeholder = "",
+  hint,
+}) => {
+  return (
+    <div className="space-y-1.5">
+      <Label
+        htmlFor={id}
+        className="text-sm font-medium text-slate-600"
+      >
+        {label}
+      </Label>
+      <div className="relative">
+        <Input
+          id={id}
+          data-testid={testid}
+          type="text"
+          value={value}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+          className="text-slate-900 bg-white border-slate-200 focus-visible:ring-blue-500 focus-visible:ring-offset-0"
+        />
+      </div>
+      {hint && <p className="text-xs text-slate-400">{hint}</p>}
+    </div>
+  );
+};

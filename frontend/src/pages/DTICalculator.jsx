@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
-import { CurrencyInput, PlainNumberInput } from "@/components/dti/CurrencyInput";
+import { CurrencyInput, PlainNumberInput, TextInput } from "@/components/dti/CurrencyInput";
 import { DTIGauge } from "@/components/dti/DTIGauge";
 import {
   toNum,
@@ -212,14 +212,13 @@ export default function DTICalculator() {
             >
               <CardContent className="pt-6">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <PlainNumberInput
+                  <TextInput
                     id="borrower-name"
                     label="Borrower Name (optional)"
                     testid="input-borrower-name"
                     value={f.borrowerName}
                     onChange={(v) => set("borrowerName")(v)}
                     placeholder="e.g. John Smith"
-                    step="any"
                   />
                 </div>
               </CardContent>
